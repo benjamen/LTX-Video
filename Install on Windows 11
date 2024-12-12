@@ -30,3 +30,47 @@ python download_model.py
 #install this if you have too
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 
+#isntall gradio UI
+pip install gradio
+
+#create UI
+echo import gradio as gr > gradio_app.py
+echo import os >> gradio_app.py
+echo import subprocess >> gradio_app.py
+echo. >> gradio_app.py
+
+echo def run_inference(ckpt_path, prompt, height, width, num_frames, seed): >> gradio_app.py
+echo     command = [ >> gradio_app.py
+echo         "python", "inference.py", >> gradio_app.py
+echo         "--ckpt_path", ckpt_path, >> gradio_app.py
+echo         "--prompt", prompt, >> gradio_app.py
+echo         "--height", str(height), >> gradio_app.py
+echo         "--width", str(width), >> gradio_app.py
+echo         "--num_frames", str(num_frames), >> gradio_app.py
+echo         "--seed", str(seed) >> gradio_app.py
+echo     ] >> gradio_app.py
+echo     result = subprocess.run(command, capture_output=True, text=True) >> gradio_app.py
+echo     return result.stdout if result.returncode == 0 else result.stderr >> gradio_app.py
+echo. >> gradio_app.py
+
+echo interface = gr.Interface( >> gradio_app.py
+echo     fn=run_inference, >> gradio_app.py
+echo     inputs=[ >> gradio_app.py
+echo         gr.Textbox(label="Checkpoint Path", value="C:/Users/User/Documents/Dev/LTX-Video", interactive=True), >> gradio_app.py
+echo         gr.Textbox(label="Prompt", placeholder="Enter your text prompt"), >> gradio_app.py
+echo         gr.Number(label="Height", value=512), >> gradio_app.py
+echo         gr.Number(label="Width", value=512), >> gradio_app.py
+echo         gr.Number(label="Number of Frames", value=16), >> gradio_app.py
+echo         gr.Number(label="Seed", value=42) >> gradio_app.py
+echo     ], >> gradio_app.py
+echo     outputs="text", >> gradio_app.py
+echo     title="Video Inference Tool", >> gradio_app.py
+echo     description="Provide the required parameters to run the inference script and generate video frames." >> gradio_app.py
+echo ) >> gradio_app.py
+echo. >> gradio_app.py
+
+echo interface.launch() >> gradio_app.py
+
+#Start UI
+python gradio_app.py
+
