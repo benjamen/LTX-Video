@@ -9,3 +9,20 @@ python -m venv env
 # Install the necessary dependencies
 python -m pip install -e .[inference-script]
 
+#install hugging face hub
+pip install huggingface_hub
+
+#create a file from command line - download_model.py
+
+echo from huggingface_hub import snapshot_download > download_model.py
+echo. >> download_model.py
+echo model_path = 'C:/Users/User/Documents/De/LTX-Video' >> download_model.py
+echo snapshot_download( >> download_model.py
+echo     repo_id="Lightricks/LTX-Video", >> download_model.py
+echo     local_dir=model_path, >> download_model.py
+echo     local_dir_use_symlinks=False, >> download_model.py
+echo     repo_type="model" >> download_model.py
+echo ) >> download_model.py
+
+#run download model
+python download_model.py
