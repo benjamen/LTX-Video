@@ -1,1 +1,11 @@
+# Clone the repository
+git clone https://github.com/Lightricks/LTX-Video.git
+cd LTX-Video
+
+# Create and activate the virtual environment
+python -m venv env
+.\env\Scripts\activate
+
+# Install the necessary dependencies
+python -m pip install -e .[inference-script]
 
